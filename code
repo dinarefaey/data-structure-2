@@ -1,0 +1,87 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#include"Book.h"
+#include"linkedlist.h"
+using namespace std;
+#define faster ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);
+void display_menu(){
+    cout<<"please select option from following menu "<<'\n';
+    cout<<"1-add new book "<<'\n';
+    cout<<"2-remove certain book using title of the book "<<'\n';
+    cout<<"3-remove certain book using author's name "<<'\n';
+    cout<<"4-sort list of books "<<'\n';
+    cout<<"5-display all books "<<'\n';
+    cout<<"6-display books for certain author"<<'\n';
+    cout<<"7-display books from certain category"<<'\n';
+
+}
+int main() {
+    faster
+    LinkedList li;
+    ifstream books_file;
+    books_file.open("books.txt");
+    Book b[14];
+    if(!books_file.is_open())
+        cout<<"No such file "<<'\n';
+
+    else
+
+    {
+        int n;
+        books_file>>n;
+        for (int i = 0; i <n ; ++i) {
+            string ti,au,ca;
+            int num;
+            while (!books_file.eof())
+            {
+                books_file >>ti;
+                b[i].setTitle(ti);
+                //  cout<<b[i].getTitle()<<'\n';
+
+                books_file>>au;
+                b[i].setAuthor(au);
+                //cout<<b[i].getAuthor()<<'\n';
+
+                books_file>>ca;
+                b[i].setCategory(ca);
+                //cout<<b[i].getCategory()<<'\n';
+
+                books_file>>num;
+                b[i].setNumofpages(num);
+                //cout<<b[i].getNumofpages()<<'\n';
+
+                li.insertLast(b[i]);
+
+            }
+        }
+    }
+    books_file.close();
+    display_menu();
+    li.displayall();
+    display_menu();
+    Book bo("Outliers","Malcolm Gladwell","Self Help",309);
+    display_menu();
+    li.insertLast(bo);
+    display_menu();
+    li.Sort();
+    display_menu();
+    li.displayall();
+    display_menu();
+    li.displaycategory("Novels");
+    display_menu();
+    li.delete_author("“Paulo Koelho");
+    display_menu();
+    li.delete_author("Paulo Coelho");
+    display_menu();
+    li.displaycategory("Novels");
+    display_menu();
+    li.removetitle("Pecoming");
+    display_menu();
+    li.removetitle("Becoming");
+    display_menu();
+    li.displayautor("Michelle Obama");
+    display_menu();
+    li.displayall();
+    display_menu();
+    return 0;
+}
